@@ -4,96 +4,374 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swar JRS Jamroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4a76a8;
+            --secondary-color: #25D366;
+            --dark-secondary: #128C7E;
+            --light-bg: #f5f5f5;
+            --text-color: #333;
+            --light-text: #666;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
         }
+        
         header {
-            background-color: #4a76a8;
+            background-color: var(--primary-color);
             color: white;
             padding: 20px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-container {
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 50%;
+            border: 3px solid white;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
+        
         .main-content {
             background-color: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            transition: box-shadow 0.3s ease;
         }
+        
+        .main-content:hover {
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+        
+        h1, h2, h3 {
+            margin: 0 0 20px;
+        }
+        
         h1 {
-            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
         .cta-button {
             display: inline-block;
-            background-color: #25D366;
+            background-color: var(--secondary-color);
             color: white;
-            padding: 12px 24px;
+            padding: 12px 30px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 30px;
             font-weight: bold;
             margin-top: 20px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
+        
         .cta-button:hover {
-            background-color: #128C7E;
+            background-color: var(--dark-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+        
+        .cta-button i {
+            margin-right: 8px;
+        }
+        
+        /* Slideshow Styles */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: 30px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: opacity 1s ease;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeIn 1.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+        
+        .slide-controls {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        
+        .dot.active, .dot:hover {
+            background-color: var(--primary-color);
+        }
+        
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            flex-basis: calc(25% - 20px);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
         footer {
             text-align: center;
             margin-top: 40px;
             padding: 30px 20px;
-            color: #666;
+            color: var(--light-text);
             background-color: #fff;
             border-top: 1px solid #eee;
         }
+        
         .footer-content {
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.6;
         }
+        
         .contact-info {
-            margin-top: 15px;
+            margin: 20px 0;
         }
+        
         .phone-number {
-            color: #4a76a8;
+            color: var(--primary-color);
             font-weight: bold;
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .phone-number:hover {
+            color: var(--dark-secondary);
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .slide {
+                height: 300px;
+            }
+            
+            .feature-item {
+                flex-basis: calc(50% - 15px);
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .slide {
+                height: 200px;
+            }
+            
+            .feature-item {
+                flex-basis: 100%;
+            }
+            
+            .cta-button {
+                display: block;
+                text-align: center;
+                margin: 20px auto 0;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container header-content">
+            <div class="logo-container">
+                <!-- Replace with your actual logo -->
+                <img src="https://via.placeholder.com/120" alt="Swar JRS Jamroom Logo" class="logo">
+            </div>
             <h1>Swar JRS Jamroom</h1>
             <p>Your musical sanctuary for creativity and collaboration</p>
         </div>
     </header>
 
     <div class="container">
+        <!-- Image Slideshow -->
+        <div class="slideshow-container">
+            <!-- Replace these with your actual jamroom images -->
+            <img src="https://source.unsplash.com/random/800x400/?music,studio" alt="Jamroom Image 1" class="slide active">
+            <img src="https://source.unsplash.com/random/800x400/?band,rehearsal" alt="Jamroom Image 2" class="slide">
+            <img src="https://source.unsplash.com/random/800x400/?guitar,drums" alt="Jamroom Image 3" class="slide">
+            <img src="https://source.unsplash.com/random/800x400/?recording,studio" alt="Jamroom Image 4" class="slide">
+            
+            <div class="slide-controls">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+        </div>
+
         <div class="main-content">
             <h2>Welcome to Our Jamroom</h2>
             <p>At Swar JRS Jamroom, we provide the perfect space for musicians to create, practice, and collaborate. Whether you're a solo artist or part of a band, our jamroom is equipped to meet your musical needs.</p>
             
-            <h3>Features:</h3>
-            <ul>
-                <li>Professional sound equipment</li>
-                <li>Comfortable and inspiring environment</li>
-                <li>Flexible booking options</li>
-                <li>Supportive community of musicians</li>
-            </ul>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3>Professional Equipment</h3>
+                    <p>High-quality sound equipment for the best recording and rehearsal experience</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-guitar"></i>
+                    </div>
+                    <h3>Inspiring Space</h3>
+                    <p>Comfortable and creative environment designed for musicians</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Flexible Booking</h3>
+                    <p>Choose the time that works best for your creative process</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Musical Community</h3>
+                    <p>Connect with other musicians and grow together</p>
+                </div>
+            </div>
             
             <h3>Ready to Jam?</h3>
             <p>Contact us to book the jamroom or for any inquiries:</p>
-            <a href="https://api.whatsapp.com/send?phone=919172706306&text=Hello%20Swar%20JRS%20Jamroom" class="cta-button">Contact on WhatsApp</a>
+            <a href="https://api.whatsapp.com/send?phone=919172706306&text=Hello%20Swar%20JRS%20Jamroom" class="cta-button">
+                <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+            </a>
         </div>
     </div>
 
@@ -110,9 +388,63 @@
                     <p>Phone: <a href="tel:+919172706306" class="phone-number">091727 06306</a></p>
                 </div>
                 
-                <p>&copy; 2023 Swar JRS Jamroom. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <p>&copy; <span id="year"></span> Swar JRS Jamroom. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Automatic Slideshow
+        let slideIndex = 0;
+        showSlides();
+        
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            slideIndex++;
+            
+            if (slideIndex > slides.length) {slideIndex = 1}
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].className += " active";
+            
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+        
+        // Manual slide control
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            showSlides();
+        }
+        
+        // Update copyright year automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
