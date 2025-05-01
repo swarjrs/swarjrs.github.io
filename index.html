@@ -50,8 +50,23 @@
         footer {
             text-align: center;
             margin-top: 40px;
-            padding: 20px;
+            padding: 30px 20px;
             color: #666;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+        }
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .contact-info {
+            margin-top: 15px;
+        }
+        .phone-number {
+            color: #4a76a8;
+            font-weight: bold;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -78,14 +93,25 @@
             
             <h3>Ready to Jam?</h3>
             <p>Contact us to book the jamroom or for any inquiries:</p>
-            <a href="https://wa.me/919172706306" class="cta-button">Contact on WhatsApp</a>
-            <!-- Replace "yourphonenumber" with your actual phone number in international format (without + or 00) -->
+            <a href="https://api.whatsapp.com/send?phone=919172706306&text=Hello%20Swar%20JRS%20Jamroom" class="cta-button">Contact on WhatsApp</a>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 Swar JRS Jamroom. All rights reserved.</p>
+            <div class="footer-content">
+                <h3>Visit Us</h3>
+                <p>Zen Business Center - 202, Bhumkar Chowk Rd,<br>
+                above Cafe Coffee Day, Shankar Kalat Nagar,<br>
+                Wakad, Pune, Pimpri-Chinchwad,<br>
+                Maharashtra 411057</p>
+                
+                <div class="contact-info">
+                    <p>Phone: <a href="tel:+919172706306" class="phone-number">091727 06306</a></p>
+                </div>
+                
+                <p>&copy; 2023 Swar JRS Jamroom. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 </body>
